@@ -12,5 +12,19 @@
     <p><strong>Runner Age:</strong> {{age}}</p>
     <p><strong>Runner Start:</strong> {{start_time}}</p>
     <p><strong>Runner Stop:</strong> {{end_time}}</p>
+
+    <form method="post">
+      {% csrf_token %}
+      <div>
+        <button name="set_time" value="piss">Set End Time</button>
+
+        <input type="datetime-local" id="end_time" name="end" step="1"
+               min="11:00:00" max="18:00:00" required>
+
+        <p>Set the finish time of the runner.</p>
+      </div>
+
+
+    </form>
   </body>
 </html>
