@@ -519,7 +519,7 @@ h6 .small,
 h1,
 h2,
 h3 {
-  margin-top: 20px;
+  /*margin-top: 20px;*/
   margin-bottom: 10px;
 }
 
@@ -790,6 +790,7 @@ pre code {
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
+  min-height: 1100px;
 }
 
 .container:before,
