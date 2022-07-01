@@ -19,10 +19,6 @@ class Runner(models.Model):
 
     class Meta:
         ordering = ("number", "last_name")
-        # indexes = [
-        #     models.Index(fields=['last_name', 'first_name']),
-        #     #models.Index(fields=['first_name'], name='first_name_idx'),
-        # ]
 
     def __unicode__(self):
         return self.number
