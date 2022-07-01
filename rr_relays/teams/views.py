@@ -1,38 +1,45 @@
 from django.template import loader
 from django.http import HttpResponse, Http404
 from django.shortcuts import render
-from .models import Runner
+from .models import Runner, Teams
 from django.db.models import ObjectDoesNotExist
 
 
 def index(request):
-	template = loader.get_template('index.html')
-	return HttpResponse(template.render())
-	
+    template = loader.get_template('index.html')
+    return HttpResponse(template.render())
+
+
 def timer(request):
-	
-	context={"name":"christine"}
-	template = loader.get_template('timer.html')
-	return HttpResponse(template.render(context))
-	
+    template = loader.get_template('timer.html')
+    return HttpResponse(template.render())
+
+
 def runner(request):
-	
-	context={"name":"christine"}
-	template = loader.get_template('runner.html')
-	return HttpResponse(template.render(context))
-	
+    template = loader.get_template('runner.html')
+    return HttpResponse(template.render())
+
+
 def teams(request):
-	
-	context={"name":"christine"}
-	template = loader.get_template('teams.html')
-	return HttpResponse(template.render(context))
-	
+
+    # Get all teams
+    all_teams = Teams.objects.all()
+
+    for team in all_teams:
+        print(f"Team: {team.number}  Name: {team.name}")
+
+    template = loader.get_template('teams.html')
+    context = {"teams": all_teams}
+    return render(request, 'teams.html', context)
+    #return HttpResponse(template.render(context))
+
+
 def set_race(request):
-	
-	context={"name":"christine"}
-	template = loader.get_template('set_race.html')
-	return HttpResponse(template.render(context))
-	
+
+    context={"name":"christine"}
+    template = loader.get_template('set_race.html')
+    return HttpResponse(template.render(context))
+
 # Create your views here.
 
 
@@ -97,7 +104,6 @@ def find_runner(request, runner_id):
 
 def runners(request):
 
-
     #queryset_list = Runner.objects.active().order_by('-created')
     all_runners = Runner.objects.all()
     for runner in all_runners:
@@ -120,13 +126,3 @@ def runners(request):
 
     return render(request, 'runner.html', context)
 
-
-    #return HttpResponse("NOT IMPLEMENTED")
-
-
-
-def teams(request):
-    pass
-    print("Teams got called")
-
-    return HttpResponse("NOT IMPLEMENTED")

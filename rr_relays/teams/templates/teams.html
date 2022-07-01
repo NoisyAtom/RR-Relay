@@ -2,7 +2,6 @@
 {% load static %}
 <html>
   <head>
-	  <head>
     <title>Set Runner End Time</title>
 
 	<meta charset="utf-8" />
@@ -17,41 +16,31 @@
 
     <link href="https://netdna.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
     <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
-</head>
-    
   </head>
+
   <body>
 	  <div class="background-image" data-parallax="active" style="background-image: url('{% static "/teams/img/bg0.jpg" %}')">
     
 					<h1 class="title">TEAMS</h1>
 					<table id="fresh-table" class="table">
 								<thead>
-								<th data-field="position_runner">RANK</th>
+								<th data-field="position_runner">NUMBER</th>
 								<th data-field="team_name" data-sortable="true">TEAM NAME</th>
 								<th data-field="start" data-sortable="true">TEAM START TIME</th>
 								<th data-field="end">TEAM END TIME</th>
 								<th data-field="time">TEAM RACE TIME</th>
 								</thead>
 								<tbody>
+									{% for team in teams%}
 									<tr>
-									<td>1</td>
-									<td>RED SNAILS</td>
-									<td>12:00:23</td>
-									<td>12:35:02</td>
-									<td>00:35:21</td>
+									<td>{{team.number}}</td>
+									<td>{{team.name}}</td>
+									<td>{{team.start_time}}</td>
+									<td>{{team.end_time}}</td>
+									<td>00:00:00</td>
 									<td></td>
 									</tr>
-									<tr>
-									<td>2</td>
-									<td>FAST SNAILS</td>
-									<td>12:00:23</td>
-									<td>12:35:02</td>
-									<td>00:35:21</td>
-									<td></td>
-									</tr>
-									<td></td>
-									</tr>
-									<tr>
+									{% endfor %}
 								</tbody>
 								</table>
 </body>
