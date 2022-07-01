@@ -5,26 +5,11 @@
     <title>Set Runner End Time</title>
   </head>
   <body>
-    <h1>Set Runner End Time</h1>
-    <p><strong>Runner Number:</strong> {{number}}</p>
-    <p><strong>Runner Name:</strong> {{name}}</p>
-    <p><strong>Runner Gender:</strong> {{gender}}</p>
-    <p><strong>Runner Age:</strong> {{age}}</p>
-    <p><strong>Runner Start:</strong> {{start_time}}</p>
-    <p><strong>Runner Stop:</strong> {{end_time}}</p>
+    <h1>Top Runners</h1>
+    <p><strong>Some message goes here</strong></p>
 
-    <form method="post">
-      {% csrf_token %}
-      <div>
-        <button name="set_time" value="piss">Set End Time</button>
-
-        <input type="datetime-local" id="end_time" name="end" step="1"
-               min="11:00:00" max="18:00:00" required>
-
-        <p>Set the finish time of the runner.</p>
-      </div>
-
-
-    </form>
+    {% for runner in runners_list %}
+      <p>Runner number {{runner.number}} Runner name: {{runner.first_name}}, {{runner.last_name}}  Elapsed Time: {{runner.elapsed_time}}</p>
+    {% endfor %}
   </body>
 </html>

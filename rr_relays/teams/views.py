@@ -70,10 +70,32 @@ def find_runner(request, runner_id):
 
 
 def runners(request):
-    pass
-    print("Runners got called")
 
-    return HttpResponse("NOT IMPLEMENTED")
+
+    #queryset_list = Runner.objects.active().order_by('-created')
+    all_runners = Runner.objects.all()
+    for runner in all_runners:
+
+        if (runner.start_time is not None) and (runner.end_time is not None):
+            print("Start time and end time is not none.")
+
+            if runner.start_time <= runner.end_time:
+                elapsed_time = runner.end_time - runner.start_time
+            else:
+                elapsed_time = "Error start time is after end time"
+        else:
+            elapsed_time = "Not complete"
+
+        print(f"Runner number: {runner.number}  Runner Name: {runner.first_name} - {runner.last_name}."
+              f"Start time: {runner.start_time}  End time: {runner.end_time}  -   Elapsed Time: {elapsed_time} ")
+        # Lets create a new field for elapsed time and populate it.
+        runner.elapsed_time = elapsed_time
+        context = {"runners_list": all_runners}
+
+    return render(request, 'runner.html', context)
+
+
+    #return HttpResponse("NOT IMPLEMENTED")
 
 
 
