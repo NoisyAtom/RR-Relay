@@ -1,3 +1,4 @@
+from django.template import loader
 from django.http import HttpResponse, Http404
 from django.shortcuts import render
 from .models import Runner
@@ -5,8 +6,14 @@ from django.db.models import ObjectDoesNotExist
 
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the runneymede runners index.")
-
+	template = loader.get_template('index.html')
+	return HttpResponse(template.render())
+	
+def timer(request):
+	
+	context={"name":"christine"}
+	template = loader.get_template('timer.html')
+	return HttpResponse(template.render(context))
 # Create your views here.
 
 
