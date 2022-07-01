@@ -3,7 +3,12 @@ from django.http import HttpResponse, Http404
 from django.shortcuts import render
 from .models import Runner, Teams
 from django.db.models import ObjectDoesNotExist
+from datetime import datetime
+from dateutil import parser
+import pytz
 
+
+tz_lon = pytz.timezone("Europe/London")
 
 def index(request):
     template = loader.get_template('index.html')
@@ -50,19 +55,6 @@ def find_runner(request, runner_id):
 
     if request.user.is_staff or request.user.is_superuser:
 
-        if request.method == "POST":
-            data = request.POST
-            action = data.get("set_time")
-            time_value = data.get("end")
-
-            print(f"The request method is a POST....Follow Button is: {action}")
-            print(f"Time value is: {time_value}")
-
-        if request.method == "PUT":
-            print("The request method is a PUT....")
-        if request.method == "GET":
-            print("The request method is a GET....")
-
         #queryset_all_runners = Post.objects.all().order_by('-created')
         try:
             runner = Runner.objects.get(number=runner_id)
@@ -83,9 +75,32 @@ def find_runner(request, runner_id):
                 action = data.get("set_time")
                 time_value = data.get("end")
                 print(f"Time value is: {time_value}")
-                runner.end_time = time_value
+                datetime_object = parser.parse(time_value)
+                runner.end_time = tz_lon.localize(datetime_object)
+
+                #runner.end_time = datetime_object
+                print(f"The end time type is: {type(runner.end_time)}")
+
+                if runner.start_time <= runner.end_time:
+                    elapsed_time = runner.end_time - runner.start_time
+
+                    print(f"OK : {type(elapsed_time)}")
+                    print(f"OK2 : {type(runner.end_time)}")
+                else:
+                    print(f"Error start time is after end time: {runner.end_time}")
+
+                # Now calculate elapsed time
+                # if (runner.start_time is not None) and (runner.end_time is not None):
+                #
+                #     if runner.start_time <= runner.end_time:
+                #         runner.elapsed_time = runner.end_time - runner.start_time
+                #     else:
+                #         print(f"Error start time is after end time: {runner.end_time}")
+                # else:
+                #     print(f"Error start time is NULL: {runner.start_time}")
 
                 print(f"Runner end time is: {runner.end_time}")
+                print(f"Runners elapsed time is: {runner.elapsed_time}")
                 runner.save()
 
             return render(request, 'set_runner.html', context)

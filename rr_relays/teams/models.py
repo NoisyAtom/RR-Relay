@@ -15,7 +15,7 @@ class Runner(models.Model):
     email = models.EmailField(max_length=254, blank=True, default='')
     start_time = models.DateTimeField(blank=True, null=True)
     end_time = models.DateTimeField(blank=True, null=True)
-    elapsed_time = models.DateTimeField(blank=True, null=True)
+    elapsed_time = models.TimeField(blank=True, null=True)
 
     class Meta:
         ordering = ("number", "last_name")
@@ -41,7 +41,7 @@ class Teams(models.Model):
 
     start_time = models.DateTimeField(blank=True, null=True)
     end_time = models.DateTimeField(blank=True, null=True)
-    elapsed_time = models.DateTimeField(blank=True, null=True)
+    elapsed_time = models.TimeField(blank=True, null=True)
 
     class Meta:
         ordering = ("number", "name")
