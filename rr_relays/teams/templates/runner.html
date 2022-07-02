@@ -21,18 +21,12 @@
   <body>
 	  <div class="background-image" data-parallax="active" style="background-image: url('{% static "/teams/img/bg0.jpg" %}')">
 		<div class="container">
-					<h1 class="title">RUNNERS</h1>
-          <h1>Top Runners</h1>
-    <p><strong>Some message goes here</strong></p>
-
-    {% for runner in runners_list %}
-      <p>Runner number {{runner.number}} Runner name: {{runner.first_name}}, {{runner.last_name}}  Elapsed Time: {{runner.elapsed_time}}</p>
-    {% endfor %}
-          
-          
+					<h1 class="title">TOP RUNNERS</h1>
+             
 					<table id="fresh-table" class="table">
 								<thead>
-								<th data-field="position_runner">Position</th>
+								<th data-field="runner_rank">RANK</th>
+								<th data-field="position_runner">POSITION</th>
 								<th data-field="runners_name" data-sortable="true">RUNNERS NAME</th>
 								<th data-field="team_name" data-sortable="true">TEAM NAME</th>
 								<th data-field="start" data-sortable="true">START TIME</th>
@@ -40,29 +34,21 @@
 								<th data-field="time">RACE TIME</th>
 								</thead>
 								<tbody>
+								
+									{% for runner in runners_list%}
 									<tr>
-									<td>1</td>
-									<td>Dakota Rice Dakota Rice Dakota Rice</td>
-									<td>FAST SNAILS</td>
-									<td>12:00:23</td>
-									<td>12:35:02</td>
-									<td>00:35:21</td>
+									<td>1 needs to count up</td>
+									<td>{{runner.number}}</td>
+									<td>{{runner.first_name}} {{runner.last_name}}</td>
+									<td>{{team.name}}</td>
 									<td></td>
-									</tr>
-									<tr>
-									<td>2</td>
-									<td>Dakota Rice Dakota Rice Dakota Rice</td>
-									<td>FAST SNAILS</td>
-									<td>12:00:23</td>
-									<td>12:35:02</td>
-									<td>00:35:21</td>
 									<td></td>
+									<td>{{runner.elapsed_time}}</td>
 									</tr>
-									<td></td>
-									</tr>
-									<tr>
+									{% endfor %}
+									
 								</tbody>
-								</table>
+						</table>
 			</div>	
 				<p class="text-center">Copyright &copy; 2015 <a href="https://creative-tim.com">Creative Tim</a>, made with <i class="fa fa-heart ct-heart"></i> by NOISY ATM LTD<img src='{% static "teams/img/na_icon.png" %}'/></p>
 </div>

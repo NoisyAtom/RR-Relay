@@ -11,8 +11,22 @@ import pytz
 tz_lon = pytz.timezone("Europe/London")
 
 def index(request):
-    template = loader.get_template('index.html')
-    return HttpResponse(template.render())
+	# Get fastest 20 teams
+    # all_teams = Teams.objects.all()
+    first_teams=Teams.objects.all()[:10]    
+   
+    # Get fastest 20 runners
+    # all_runners = Runner.objects.all()
+    first_runners = Runner.objects.all()[:10]
+    
+    context = {"teams": first_teams,
+				"runners": first_runners}
+
+    # Runner.objects.all().order_by('created')[:20]    
+    # context = {"runner": all_runners}
+    
+    return render(request, 'index.html', context)
+    #return HttpResponse(template.render())
 
 
 def timer(request):

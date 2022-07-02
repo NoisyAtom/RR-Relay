@@ -25,7 +25,7 @@
 
     <div class="row">
         <h1 class="title">
-            Runneymede Runners Sommer Relays 2. July 2022
+            Runnymede Runners Sommer Relays 2. July 2022
             </h1>
                 <div class="timer">
 						  <span class="hour">00</span>
@@ -43,7 +43,7 @@
                 <div class="card">
                     <div class="front">
                         <div class="cover">
-                            <h1 class="title">FASTEST RUNNERS</h1>               
+                            <h1 class="title">TOP RUNNERS</h1>               
                         <div>
                         </div>
                         </div>
@@ -52,32 +52,26 @@
 								<table id="fresh-table" class="table">
 								<thead>
 								<th data-field="position_runner">RANK</th>
+								<th data-field="runners_id" data-sortable="true">RUNNERS ID</th>
 								<th data-field="runners_name" data-sortable="true">RUNNERS NAME</th>
 								<th data-field="team_name" data-sortable="true">TEAM NAME</th>
 								<!--<th data-field="start" data-sortable="true">START TIME</th> -->
-								<!-- <th data-field="end">END TIME</th> -->
+								<!--<th data-field="end">END TIME</th> -->
 								<th data-field="time">RACE TIME</th>
 								</thead>
-								<tbody>
+								<tbody>							
+									{% for runner in runners%}
 									<tr>
-									<td>1</td>
-									<td>Dakota Rice Dakota Rice Dakota Rice</td>
-									<td>FAST SNAILS</td>
-									<td>00:25:30</td>
-									<!--<td>Oud-Turnhout</td> -->
-									<!--<td>Oud-Turnhout</td> -->
+									<td>1 needs to count up</td>
+									<td>{{runner.number}}</td>
+									<td>{{team.club_name}}</td>
+									<td>{{runner.first_name}} {{runner.last_name}}</td>
+									<td>{{team.name}}</td>
 									<td></td>
-									</tr>
-									<tr>
-									<td>2</td>
-									<td>Minerva Hooper</td>
-									<td>RED Socks</td>
-									<td>00:27:02</td>
-									<!--<td>Sinaai-Waas</td> -->
-									<!--<td>Sinaai-Waas</td> -->
 									<td></td>
+									<td>{{runner.elapsed_time}}</td>
 									</tr>
-									<tr>
+									{% endfor %}									
 								</tbody>
 								</table>
                             </div>
@@ -89,7 +83,7 @@
                     
                     <div class="back">
                         <div class="title">
-                            <h1 class="tiltle">FASTEST TEAMS</h1>
+                            <h1 class="tiltle">TOP TEAMS</h1>
                         </div>
                         <div class="content">
                             <div class="main">
@@ -97,27 +91,22 @@
 								<table id="fresh-table" class="table">
 								<thead>
 								<th data-field="position_team">RANK</th>
+								<th data-field="team_name" data-sortable="true">TEAM NUMBER</th>
 								<th data-field="team_name" data-sortable="true">TEAM NAME</th>
 								<th data-field="total_time_team" data-sortable="true">TEAM RACE TIME</th>
 								</thead>
 								<tbody>
+									{% for team in teams%}
 									<tr>
-									<td>1</td>
-									<td>Dakota Rice Dakota Rice Dakota Rice</td>
-									<td>01:25:30</td>
-									<!--<td>Oud-Turnhout</td> -->
-									<!--<td>Oud-Turnhout</td> -->
+									<td>1 needs to count up</td>
+									<td>{{team.number}}</td>
+									<td>{{team.name}}</td>
+									<!--<td>{{team.start_time}}</td>-->
+									<!--<td>{{team.end_time}}</td>-->
+									<td>{{team.elapsed_time}}</td>
 									<td></td>
 									</tr>
-									<tr>
-									<td>2</td>
-									<td>Minerva Hooper</td>
-									<td>01:27:02</td>
-									<!--<td>Sinaai-Waas</td> -->
-									<!--<td>Sinaai-Waas</td> -->
-									<td></td>
-									</tr>
-									<tr>
+									{% endfor %}
 								</tbody>
 								</table>
                             </div>
