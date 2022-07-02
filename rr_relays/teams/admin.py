@@ -14,7 +14,7 @@ class RaceAdmin(admin.ModelAdmin):
 
 @admin.register(Runner)
 class RunnerAdmin(admin.ModelAdmin):
-    list_display = ("number", "last_name", "first_name", "start_time", "end_time")
+    list_display = ("number", "last_name", "first_name", "start_time", "end_time", "elapsed_time")
     search_fields = ("last_name__startswith",)
 
 

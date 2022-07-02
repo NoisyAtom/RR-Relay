@@ -54,7 +54,6 @@
 								<th data-field="position_runner">RANK</th>
 								<th data-field="runners_id" data-sortable="true">RUNNERS ID</th>
 								<th data-field="runners_name" data-sortable="true">RUNNERS NAME</th>
-								<th data-field="team_name" data-sortable="true">TEAM NAME</th>
 								<!--<th data-field="start" data-sortable="true">START TIME</th> -->
 								<!--<th data-field="end">END TIME</th> -->
 								<th data-field="time">RACE TIME</th>
@@ -62,13 +61,9 @@
 								<tbody>							
 									{% for runner in runners%}
 									<tr>
-									<td>1 needs to count up</td>
+									<td>{{ forloop.counter }}</td>
 									<td>{{runner.number}}</td>
-									<td>{{team.club_name}}</td>
 									<td>{{runner.first_name}} {{runner.last_name}}</td>
-									<td>{{team.name}}</td>
-									<td></td>
-									<td></td>
 									<td>{{runner.elapsed_time}}</td>
 									</tr>
 									{% endfor %}									
@@ -98,7 +93,7 @@
 								<tbody>
 									{% for team in teams%}
 									<tr>
-									<td>1 needs to count up</td>
+									<td>{{ forloop.counter }}</td>
 									<td>{{team.number}}</td>
 									<td>{{team.name}}</td>
 									<!--<td>{{team.start_time}}</td>-->

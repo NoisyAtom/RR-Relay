@@ -71,7 +71,14 @@
 
 var elems = document.getElementsByClassName("card");
 var totalSecond = 0;
-var myTimer;
+var myTimer2;
+
+function Refresh(){
+    window.location.reload(1);
+}
+
+
+myTimer2 = setTimeout(Refresh, timeout: 30000);
 
 function RotationCard() {
     totalSecond = totalSecond + 1;
