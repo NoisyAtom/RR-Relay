@@ -35,18 +35,20 @@
 						  <span class="second">00</span>
 						  <span class="colon ms-colon">:</span>
 						  <span class="millisecond">00</span>
-						</div>
+			</div>
 						<br>
-			<div class="button">
-						  <button class="start">START</button>
+			<form method="post">
+				{% csrf_token %}
+				<div class="button">
+						  <button name="set_time" value="on" class="start">START</button>
 						  <button class="stop">STOP</button>
-						  <button class="reset">RESET</button>
+						  <button name="reset" value="on" class="reset">RESET</button>
 						  <button class="setTime">SET</button>
 						  <br>
 						  <br>
-						  <p class="set_timer"><input type="datetime-local" id="hour_in" name="hour" step="1" value="12:00:00"></p>
-			</div>
-			
+						  <p class="set_timer"><input type="datetime-local" id="start_time" name="start" step="1" value="12:00:00"></p>
+				</div>
+			 </form>
 	</div>
 
     <div class="space-100"></div>
