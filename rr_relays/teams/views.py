@@ -3,7 +3,12 @@ from django.http import HttpResponse, Http404
 from django.shortcuts import render
 from .models import Runner, Teams
 from django.db.models import ObjectDoesNotExist
+from datetime import datetime
+from dateutil import parser
+import pytz
 
+
+tz_lon = pytz.timezone("Europe/London")
 
 def index(request):
     template = loader.get_template('index.html')
@@ -35,12 +40,50 @@ def teams(request):
 
 
 def set_race(request):
+    all_teams = Teams.objects.all()
 
-    context={"name":"christine"}
-    template = loader.get_template('set_race.html')
-    return HttpResponse(template.render(context))
+    print("Set race called..........")
+
+    if request.method == "POST":
+        data = request.POST
+        time_value = data.get("start")
+        button_start = data.get("set_time")
+        button_reset = data.get("reset")
+        print(f"Time value is: {time_value}")
+        print(f"Button start is: {button_start}")
+        print(f"Button reset is: {button_reset}")
+
+        if button_start == "on":
+            for team in all_teams:
+                print(f"Team Runner A number is: {team.runners_A.number}")
+                print(f"Team Runner A start time is: {team.runners_A.start_time}")
+                datetime_object = parser.parse(time_value)
+                first_runner = Runner.objects.get(number=team.runners_A.number)
+                first_runner.start_time = datetime_object
+                team.runners_A.start_time = datetime_object
+                print(f"Team Runner A start time is now: {first_runner.start_time}")
+                first_runner.save()
+
+        if button_reset == "on":
+            for team in all_teams:
+                print(f"Team Runner A number is: {team.runners_A.number}")
+                first_runner = Runner.objects.get(number=team.runners_A.number)
+                first_runner.start_time = None
+                first_runner.save()
+                print("Start times reset ........")
+
+    context = {"test": "test"}
+    return render(request, 'set_race.html', context)
+
 
 # Create your views here.
+
+
+def _set_runner_next_start(last_runner):
+    pass
+    letters = ["A", "B", "C", "D", "E", "F"]
+
+
 
 
 def find_runner(request, runner_id):
@@ -50,43 +93,44 @@ def find_runner(request, runner_id):
 
     if request.user.is_staff or request.user.is_superuser:
 
-        if request.method == "POST":
-            data = request.POST
-            action = data.get("set_time")
-            time_value = data.get("end")
-
-            print(f"The request method is a POST....Follow Button is: {action}")
-            print(f"Time value is: {time_value}")
-
-        if request.method == "PUT":
-            print("The request method is a PUT....")
-        if request.method == "GET":
-            print("The request method is a GET....")
-
         #queryset_all_runners = Post.objects.all().order_by('-created')
         try:
             runner = Runner.objects.get(number=runner_id)
             message = f"Runner is: {runner.first_name} {runner.last_name}   " \
                       f"Number: {runner.number}  Age: {runner.age}  " \
                       f"Start time: {runner.start_time}  End time: {runner.end_time}"
-            # message = "You are authorised!."
+
             print(f"Message: {message}")
+
+            if request.method == "POST":
+                data = request.POST
+                time_value = data.get("end")
+                print(f"Time value is: {time_value}")
+                datetime_object = parser.parse(time_value)
+                runner.end_time = tz_lon.localize(datetime_object)
+
+                #runner.end_time = datetime_object
+                print(f"The end time type is: {type(runner.end_time)}")
+
+                if runner.start_time <= runner.end_time:
+                    elapsed_time = runner.end_time - runner.start_time
+                    runner.elapsed_time = str(elapsed_time)
+                else:
+                    print(f"Error start time is after end time: {runner.end_time}")
+
+                print(f"Runners elapsed time is: {runner.elapsed_time}")
+                runner.save()
+
+                #_set_runner_next_start(runner)
+
             context = {"number": runner.number,
                        "name": f"{runner.first_name}   {runner.last_name}",
                        "gender": runner.gender,
                        "age": runner.age,
                        "start_time": runner.start_time,
-                       "end_time": runner.end_time}
+                       "end_time": runner.end_time,
+                       "elapsed_time": runner.elapsed_time}
 
-            if request.method == "POST":
-                data = request.POST
-                action = data.get("set_time")
-                time_value = data.get("end")
-                print(f"Time value is: {time_value}")
-                runner.end_time = time_value
-
-                print(f"Runner end time is: {runner.end_time}")
-                runner.save()
 
             return render(request, 'set_runner.html', context)
 

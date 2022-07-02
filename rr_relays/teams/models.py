@@ -2,7 +2,6 @@ from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 
 
-
 # Runners. Must have a number which can be alphanumeric. A sex. An age.
 class Runner(models.Model):
     GENDER_MALE = 0
@@ -16,6 +15,7 @@ class Runner(models.Model):
     email = models.EmailField(max_length=254, blank=True, default='')
     start_time = models.DateTimeField(blank=True, null=True)
     end_time = models.DateTimeField(blank=True, null=True)
+    elapsed_time = models.TimeField(blank=True, null=True)
 
     class Meta:
         ordering = ("number", "last_name")
@@ -25,6 +25,7 @@ class Runner(models.Model):
 
     def __str__(self):
         return f"Number: '{self.number}' - {self.last_name}"
+
 
 # Team model. Only 6 runners per team.
 class Teams(models.Model):
@@ -40,6 +41,7 @@ class Teams(models.Model):
 
     start_time = models.DateTimeField(blank=True, null=True)
     end_time = models.DateTimeField(blank=True, null=True)
+    elapsed_time = models.TimeField(blank=True, null=True)
 
     class Meta:
         ordering = ("number", "name")
@@ -58,15 +60,3 @@ class Race(models.Model):
     race_started = models.IntegerField(choices=STARTED_CHOICES)
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
-
-
-#
-# class Question(models.Model):
-#     question_text = models.CharField(max_length=200)
-#     pub_date = models.DateTimeField('date published')
-#
-#
-# class Choice(models.Model):
-#     question = models.ForeignKey(Question, on_delete=models.CASCADE)
-#     choice_text = models.CharField(max_length=200)
-#     votes = models.IntegerField(default=0)
